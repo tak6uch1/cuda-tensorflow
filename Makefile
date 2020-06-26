@@ -18,8 +18,8 @@ run:
 		-p 8888:8888 \
 		-v /etc/group:/etc/group:ro \
 		-v /etc/passwd:/etc/passwd:ro \
-		-v /home/user/work/docker/tensorflow/work:/work \
-                -v /home/user/work/docker/tensorflow/notebooks:/opt/notebooks \
+		-v /home/user/work/cuda-tensorflow/work:/work \
+                -v /home/user/work/cuda-tensorflow/notebooks:/opt/notebooks \
 		-u $(uid):$(ugrp) \
 		--name $(CONTAINER) \
 		$(IMAGE)
@@ -29,7 +29,7 @@ run_root:
 		--gpus '"device=0"' \
 		-itd \
 		-p 8888:8888 \
-                -v /home/user/work/docker/tensorflow/notebooks:/opt/notebooks \
+                -v /home/user/work/cuda-tensorflow/notebooks:/opt/notebooks \
 		--name $(CONTAINER) \
 		$(IMAGE)
 

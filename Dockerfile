@@ -26,7 +26,7 @@ RUN apt update && apt install -y --no-install-recommends \
 # Install Python
 #RUN apt update && apt install -y python-dev python-pip
 RUN apt update && apt install -y python3-dev python3-pip
-RUN pip3 install -U pip six numpy wheel setuptools mock 'future>=0.17.1'
+RUN pip3 install -U pip six 'numpy<1.19.0' wheel setuptools mock 'future>=0.17.1'
 RUN pip3 install -U keras_applications --no-deps
 RUN pip3 install -U keras_preprocessing --no-deps
 
