@@ -7,14 +7,13 @@ Gets to 99.25% test accuracy after 12 epochs
 
 from __future__ import print_function
 import tensorflow as tf
+physical_devices = tf.config.list_physical_devices('GPU')
+tf.print(physical_devices)
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 from tensorflow.keras import backend as K
-
-from tensorflow.python.compiler.mlcompute import mlcompute
-mlcompute.set_mlc_device(device_name="any")
 
 batch_size = 128
 num_classes = 10
@@ -59,8 +58,9 @@ model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
 
+# optimizers.legacy is W/A to avoid bug
 model.compile(loss=tf.keras.losses.categorical_crossentropy,
-              optimizer=tf.keras.optimizers.Adadelta(),
+              optimizer=tf.keras.optimizers.legacy.Adadelta(),
               metrics=['accuracy'])
 
 model.fit(x_train, y_train,
@@ -68,6 +68,7 @@ model.fit(x_train, y_train,
           epochs=epochs,
           verbose=1,
           validation_data=(x_test, y_test))
+exit()
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
